@@ -57,6 +57,7 @@ void DemoScene::init()
 	
 	//shader=new CGFshader("../shaders/texshader.vert","../shaders/texshader.frag");
 
+	lsf->GenerateList(lsf->root);
 
 	setUpdatePeriod(30);
 }
@@ -113,7 +114,7 @@ void DemoScene::display()
 	// ---- BEGIN drawing
 	
 	glPushMatrix();
-	lsf->root->draw(); //Calls drawing of the root node which, by itself, calls every other draw.
+		lsf->root->draw(); //Calls drawing of the root node which, by itself, calls every other draw.
 	glPopMatrix();
 	
 	// ---- END drawing

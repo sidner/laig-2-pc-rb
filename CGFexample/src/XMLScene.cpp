@@ -650,7 +650,11 @@ XMLScene::XMLScene(char *filename)
 					list<string> children_id;
 					string apref_id;
 					string node_id = (string)nodeElement->Attribute("id");
-					
+					bool isCL = false;
+					nodeElement->QueryBoolAttribute("displaylist",&isCL);
+
+					cout << "id: " << node_id << " isCL: " << isCL << endl;
+
 					TiXmlElement* transform_node = nodeElement->FirstChildElement("transforms");
 					
 //////////////// Parsing of Geometric Transformations ////////////////
@@ -924,7 +928,7 @@ XMLScene::XMLScene(char *filename)
 						exit(-1);
 					}
 					
-					No* node = new No(node_id,apref_id, matrix, children_id); // create a new node pointer with its values
+					No* node = new No(node_id,apref_id, matrix, children_id,isCL); // create a new node pointer with its values
 
 					//fill the node's list of Primitives
 					if(Prim.size() != 0)
@@ -1008,4 +1012,16 @@ bool XMLScene::Verifica(No* node)
 	
 	res = true;
 	return res;
+}
+
+void XMLScene::GenerateList(No* node)
+{
+	if(node->isCallList)
+	{
+		node->generateCallList();
+	}
+	for(list<No*>::iterator it = node->children.begin();it!=node->children.end();it++)
+	{
+		GenerateList((*it));
+	}
 }

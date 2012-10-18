@@ -164,7 +164,7 @@ informacao do grafo; "rootid" identifica o no de raiz
                 <noderef id="cubo_face" />
             </children>
         </node>
-        <node id="arqueiro">
+        <node id="arqueiro" displaylist="false">
             <!-- Arqueiro cujos filhos são corpo, cabeça, pernas e braços -->
             <transforms>
                 <translate x="18" y="2.89" z="18" />
@@ -201,7 +201,7 @@ informacao do grafo; "rootid" identifica o no de raiz
                 <noderef id="cubo" />
             </children>
         </node>
-        <node id="arqueiro_cabeca">
+        <node id="arqueiro_cabeca" displaylist="true">
             <transforms>
                 <translate x="0" y="2.9" z="0" />
                 <scale x="1" y="1" z="1" />

@@ -34,7 +34,7 @@ public:
 	CGFcamera* camera_init;
 	bool Verifica(No* node);
 	vector<pair<No*,bool> > temp;
-	
+	void GenerateList(No*);
 protected:
 
 	TiXmlDocument* doc;

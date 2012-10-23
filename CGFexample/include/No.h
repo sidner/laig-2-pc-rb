@@ -23,6 +23,7 @@ class No: public CGFobject{
 		Appearance* materialAppearance;
 		static stack<Appearance*> pilha;
 		No(){};
+		virtual ~No(){};
 		No(string name,string ap, GLfloat m[16], list<string> child_ids,bool isCL);
 		void fill_children(No* child)
 		{

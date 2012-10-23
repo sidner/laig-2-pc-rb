@@ -1016,12 +1016,12 @@ bool XMLScene::Verifica(No* node)
 
 void XMLScene::GenerateList(No* node)
 {
-	if(node->isCallList)
-	{
-		node->generateCallList();
-	}
 	for(list<No*>::iterator it = node->children.begin();it!=node->children.end();it++)
 	{
 		GenerateList((*it));
+	}
+	if(node->isCallList)
+	{
+		node->generateCallList();
 	}
 }

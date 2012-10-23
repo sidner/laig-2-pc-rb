@@ -10,20 +10,62 @@ No::No(string name,string ap, GLfloat m[16], list<string> child_ids,bool isCL)
 	{
 		matrix[i] = m[i];
 	}
-	//materialAppearance = NULL;
+	materialAppearance = NULL;
 	visited=false;
 	this->child_ids=child_ids;
 	isCallList = isCL;
+	myCallList = 0;
 }
 
 void No::generateCallList()
 {
-	cout << name << " is a call list.\n";
 	myCallList = glGenLists(1);
-
+	cout << name << ": " << myCallList << endl;
 	glNewList(myCallList,GL_COMPILE);
+		glPushMatrix();
+		glMultMatrixf(matrix);
 
-		drawAll();
+
+		if(appearanceid!="inherit")
+		{
+			pilha.push(materialAppearance);
+		}
+		else
+		{
+			if(!pilha.empty() && appearanceid!="inherit")
+				materialAppearance = pilha.top();
+		}
+
+
+		if(!primitives.empty())
+		{
+			for (list<Primitive*>::iterator it=primitives.begin(); it!=primitives.end(); it++)
+			{
+				if(!pilha.empty()&& appearanceid!="inherit")
+					materialAppearance->apply();
+				(*it)->draw();
+			}
+		}
+
+
+		if(!children.empty())
+		{
+			for (list<No*>::iterator it=children.begin(); it!=children.end(); it++)
+			{
+				if((!pilha.empty() && appearanceid!="inherit") || !((*it)->isCallList) || ((*it)->isCallList && (*it)->appearanceid == "inherit"))
+				{
+
+					materialAppearance->apply();
+				}
+				(*it)->draw();
+			}
+		}
+
+		if(appearanceid!="inherit")
+		{
+			pilha.pop();
+		}
+		glPopMatrix();
 
 	glEndList();
 
@@ -34,56 +76,50 @@ void No::draw()
 {
 	if(isCallList)
 	{
+		cout << name << ": " << myCallList << endl;
 		glCallList(myCallList);
 	}
 	else
 	{
-		drawAll();
-	}
-}
+		cout << pilha.size()<< ".\n";
+		glPushMatrix();
+		glMultMatrixf(matrix);
 
-void No::drawAll()
-{
-	glPushMatrix();
-	glMultMatrixf(matrix);
-
-	if(appearanceid!="inherit")
-	{
-		pilha.push(materialAppearance);
-	}
-	else
-	{
-		if(!pilha.empty())
-			materialAppearance = pilha.top();
-	}
-
-	if(!primitives.empty())
-	{
-		if(name == "arqueiro_cabeca")
-			cout << "I'm here: " << primitives.size()<<endl;
-		for (list<Primitive*>::iterator it=primitives.begin(); it!=primitives.end(); it++)
+		if(appearanceid!="inherit")
 		{
-			if(!pilha.empty())
-				materialAppearance->apply();
-			(*it)->draw();
+			pilha.push(materialAppearance);
 		}
-	}
-
-	if(!children.empty())
-	{
-		for (list<No*>::iterator it=children.begin(); it!=children.end(); it++)
+		else
 		{
 			if(!pilha.empty())
+				materialAppearance = pilha.top();
+		}
+
+		if(!primitives.empty())
+		{
+			for (list<Primitive*>::iterator it=primitives.begin(); it!=primitives.end(); it++)
 			{
-				materialAppearance->apply();
+				if(!pilha.empty())
+					materialAppearance->apply();
+				(*it)->draw();
 			}
-			(*it)->draw();
 		}
-	}
-	if(appearanceid!="inherit")
-	{
-		pilha.pop();
-	}
-	glPopMatrix();
-}
 
+		if(!children.empty())
+		{
+			for (list<No*>::iterator it=children.begin(); it!=children.end(); it++)
+			{
+				if(!pilha.empty() || !((*it)->isCallList) || ((*it)->isCallList && (*it)->appearanceid == "inherit"))
+				{
+					materialAppearance->apply();
+				}
+				(*it)->draw();
+			}
+		}
+		if(appearanceid!="inherit")
+		{
+			pilha.pop();
+		}
+		glPopMatrix();
+	}
+}

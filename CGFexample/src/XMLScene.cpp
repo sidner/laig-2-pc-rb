@@ -359,11 +359,9 @@ XMLScene::XMLScene(char *filename)
 				if(L0)
 				{
 					L_id = (string)(L0->Attribute("id"));
-					
-					bool L0_enabled;
-					
+
 					if(!L_id.empty())
-						cout << "A luz com id " << L_id << " esta " << L0_enabled << endl;
+						cout << "A luz com id " << L_id << endl;
 					else
 					{
 						cout << "Issues reading attribute id of light \n";
@@ -597,7 +595,7 @@ XMLScene::XMLScene(char *filename)
 			exit(1);
 		}
 			
-			materialAppearance= new Appearance(emissiv,ambient,difuse,specular,shi_value);
+			materialAppearance= new Appearance(app_id,emissiv,ambient,difuse,specular,shi_value);
 			
 ///////////////////////////////////////// Texture //////////////////////////////////////////
 			if(textureElement)

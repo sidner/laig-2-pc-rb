@@ -52,9 +52,9 @@ void No::generateCallList()
 		{
 			for (list<No*>::iterator it=children.begin(); it!=children.end(); it++)
 			{
-				if((!pilha.empty() && appearanceid!="inherit") || !((*it)->isCallList) || ((*it)->isCallList && (*it)->appearanceid == "inherit"))
+				if(!pilha.empty() || appearanceid!="inherit" || !isCallList)
 				{
-
+					cout << "hello\n";
 					materialAppearance->apply();
 				}
 				(*it)->draw();
@@ -81,7 +81,7 @@ void No::draw()
 	}
 	else
 	{
-		cout << pilha.size()<< ".\n";
+		cout << name<< ".\n";
 		glPushMatrix();
 		glMultMatrixf(matrix);
 
@@ -100,7 +100,10 @@ void No::draw()
 			for (list<Primitive*>::iterator it=primitives.begin(); it!=primitives.end(); it++)
 			{
 				if(!pilha.empty())
+				{
+					cout << materialAppearance->get_t()<<endl;
 					materialAppearance->apply();
+				}
 				(*it)->draw();
 			}
 		}
@@ -109,8 +112,9 @@ void No::draw()
 		{
 			for (list<No*>::iterator it=children.begin(); it!=children.end(); it++)
 			{
-				if(!pilha.empty() || !((*it)->isCallList) || ((*it)->isCallList && (*it)->appearanceid == "inherit"))
+				if(!pilha.empty())
 				{
+					cout << materialAppearance->get_t()<<endl;
 					materialAppearance->apply();
 				}
 				(*it)->draw();

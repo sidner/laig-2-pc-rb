@@ -17,8 +17,8 @@ class Appearance
 /// This class can be used to store color and material information (including textures) so you can apply them to an object.
 {
 	public:
-		Appearance();								///< Basic contructor
-		Appearance(float*, float*, float*, float*, float);	///< Constructor for initializing emissive, ambient, diffuse and specular components (4-float vector each) and shininess coefficient
+		Appearance();								///< Basic constructor
+		Appearance(string id,float*, float*, float*, float*, float);	///< Constructor for initializing emissive, ambient, diffuse and specular components (4-float vector each) and shininess coefficient
 		Appearance(float*, float*, float*, float);///< Constructor for initializing ambient, diffuse and specular components (4-float vector each) and shininess coefficient
 		Appearance(float*);							///< Constructor for initializing material with a single color (for no-lighting environments)
 		Appearance(string, int, int);				///< Constructor for initializing with a texture (filename) and wrapping style in s and t directions
@@ -39,7 +39,11 @@ class Appearance
 		void setTextureWrap(int, int);					///< Sets the texture wrapping mode
 		void set_lengths(float s, float t); ///< Sets the lenght of s and t variables of texture
 		
+		string get_t(){return texName;}
+
 	protected:
+
+		string id;
 
 		int materialType;
 

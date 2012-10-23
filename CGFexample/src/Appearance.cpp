@@ -29,9 +29,12 @@ Appearance::Appearance()
 
 }
 
-Appearance::Appearance(float* e, float* a, float* d, float* sp, float sh) 
+Appearance::Appearance(string id, float* e, float* a, float* d, float* sp, float sh)
 {
 	try {
+
+		this->id=id;
+
 		emissive[0] = e[0];
 		emissive[1] = e[1];
 		emissive[2] = e[2];
@@ -176,6 +179,7 @@ void Appearance::setShininess(float shi)
 
 void Appearance::setTexture(string t) 
 {
+	texName=t;
 	texture=new CGFtexture(t);
 }
 

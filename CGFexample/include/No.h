@@ -21,6 +21,7 @@ class No: public CGFobject{
 		list<No*> children;
 		list<Primitive*> primitives;
 		Appearance* materialAppearance;
+                Appearance* fatherAppearance;
 		static stack<Appearance*> pilha;
 		No(){};
 		virtual ~No(){};

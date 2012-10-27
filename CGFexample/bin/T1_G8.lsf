@@ -141,7 +141,7 @@ informacao do grafo; "rootid" identifica o no de raiz
                 <noderef id="floor" />
             </children>
         </node>
-        <node id="skybox_right" displaylist="false">
+        <node id="skybox_right" displaylist="true">
             <transforms>
                 <translate x="25" y="10" z="0" />
                 <scale x="50" y="25" z="0" />
@@ -164,7 +164,7 @@ informacao do grafo; "rootid" identifica o no de raiz
                 <noderef id="cubo_face" />
             </children>
         </node>
-        <node id="arqueiro" displaylist="false">
+        <node id="arqueiro" displaylist="true">
             <!-- Arqueiro cujos filhos são corpo, cabeça, pernas e braços -->
             <transforms>
                 <translate x="18" y="2.89" z="18" />
@@ -201,13 +201,13 @@ informacao do grafo; "rootid" identifica o no de raiz
                 <noderef id="cubo" />
             </children>
         </node>
-        <node id="arqueiro_cabeca" displaylist="false">
+        <node id="arqueiro_cabeca" displaylist="true">
             <transforms>
                 <translate x="0" y="2.9" z="0" />
                 <scale x="1" y="1" z="1" />
             </transforms>
             <!-- <appearanceref id="appeareance_arqueiro_cabeca" /> -->
-            <appearanceref id="inherit" />
+            <appearanceref id="terra" />
             <children>
                 <sphere radius="1" slices="24" stacks="12" />
             </children>

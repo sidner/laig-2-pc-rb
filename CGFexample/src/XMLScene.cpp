@@ -1016,6 +1016,10 @@ void XMLScene::GenerateList(No* node)
 {
 	for(list<No*>::iterator it = node->children.begin();it!=node->children.end();it++)
 	{
+        if((*it)->isCallList)
+        {
+            (*it)->fatherAppearance=node->materialAppearance;
+        }
 		GenerateList((*it));
 	}
 	if(node->isCallList)

@@ -10,3 +10,6 @@
 *.lai
 *.la
 *.a
+
+#NetBeans project folder
+nbproject

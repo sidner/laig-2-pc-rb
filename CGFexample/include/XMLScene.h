@@ -9,6 +9,8 @@
 #include "Cylinder.h"
 #include "Sphere.h"
 #include "Torus.h"
+#include "Patch.h"
+#include "Plane.h"
 #include "Appearance.h"
 #include "CGFlight.h"
 #include "CameraPers.h"

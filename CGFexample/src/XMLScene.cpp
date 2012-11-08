@@ -12,7 +12,7 @@ XMLScene::XMLScene (char *filename)
         printf ("Could not load file '%s'. Error='%s'. Exiting.\n", filename, doc->ErrorDesc ());
         exit (1);
     }
-
+    //TODO Cenas.
     TiXmlElement* lsfElement = doc->FirstChildElement ("lsf");
 
     if (lsfElement == NULL)
@@ -656,7 +656,7 @@ XMLScene::XMLScene (char *filename)
                     string node_id = (string) nodeElement->Attribute ("id");
                     bool isCL = false;
                     nodeElement->QueryBoolAttribute ("displaylist", &isCL);
-
+                    bool isEval = false;
                     cout << "id: " << node_id << " isCL: " << isCL << endl;
 
                     TiXmlElement* transform_node = nodeElement->FirstChildElement ("transforms");
@@ -795,10 +795,15 @@ XMLScene::XMLScene (char *filename)
                     {
                         TiXmlElement* tag = children->FirstChildElement ();
 
-                        string teste[] = {"rectangle", "triangle", "cylinder", "sphere", "torus", "noderef"};
+                        string teste[] = {"rectangle", "triangle", "cylinder", "sphere", "torus", "patch", "noderef","plane"};
                         int x;
-                        float tag_x1, tag_x2, tag_x3, tag_y1, tag_y2, tag_y3, tag_z1, tag_z2, tag_z3, base, top, height, radius, inner, outer;
+                        float tag_x1, tag_x2, tag_x3, tag_y1, tag_y2, tag_y3;
+                        float tag_z1, tag_z2, tag_z3, base, top, height, radius, inner, outer;
+                        float OrderU, OrderV, partsU, partsV;
                         int slices, stacks, loops;
+                        GLfloat control;
+                        //string ctrl;
+                        
                         string tag_s;
 
                         if (tag)
@@ -807,7 +812,6 @@ XMLScene::XMLScene (char *filename)
                             {
 
                                 tag_s = (string) tag->Value ();
-
                                 x = 0;
 
                                 while (teste[x] != tag_s)
@@ -909,12 +913,86 @@ XMLScene::XMLScene (char *filename)
                                     }
                                     break;
                                 }
-                                case 5: // Another composed node (i.e. not a leaf)
+                                case 5: //Patch
                                 {
-std:
-                                    string child_id (tag->Attribute ("id"));
+                                    const char* ctrl = tag->Attribute ("control");
+                                    
+                                    if (tag->QueryFloatAttribute ("orderU", &OrderU) == TIXML_SUCCESS &&
+                                        tag->QueryFloatAttribute ("orderV", &OrderV) == TIXML_SUCCESS &&
+                                        tag->QueryFloatAttribute ("partsU", &partsU) == TIXML_SUCCESS &&
+                                        tag->QueryFloatAttribute ("partsV", &partsV) == TIXML_SUCCESS &&
+                                        sizeof(ctrl) != 0)
+                                    {
+                                        int size = OrderU * OrderV;
+                                        GLfloat ** coordpoints;
+                                        coordpoints = new GLfloat*[size];
+                                        for(int i = 0; i<size;i++)
+                                        {
+                                            coordpoints[i] = new GLfloat[3];
+                                        }
+                                        
 
-                                    if (!child_id.empty ())
+                                        TiXmlElement* controlpoint = tag->FirstChildElement ();
+
+                                        if (strcmp(ctrl,"fill") == 0)
+                                        {
+                                            control = GL_FILL;
+                                        }
+                                        else if (strcmp(ctrl,"line") == 0)
+                                        {
+                                            control = GL_LINE;
+                                        }
+                                        else if (strcmp(ctrl,"point") == 0)
+                                        {
+                                            control = GL_POINT;
+                                        }
+                                        else
+                                        {
+                                            cout << "Error. Such Control does not exist.\n";
+                                            exit (1);
+                                        }
+
+
+                                        for (int i = 0; i < size; i++)
+                                        {
+                                            if (controlpoint &&
+                                                controlpoint->QueryFloatAttribute ("x", &coordpoints[i][0]) == TIXML_SUCCESS &&
+                                                controlpoint->QueryFloatAttribute ("y", &coordpoints[i][1]) == TIXML_SUCCESS &&
+                                                controlpoint->QueryFloatAttribute ("z", &coordpoints[i][2]) == TIXML_SUCCESS)
+                                            {
+                                               
+                                                
+                                                controlpoint = controlpoint->NextSiblingElement ();
+                                            }
+                                            else
+                                            {
+                                                cout << "Error reading values of control points\n";
+                                                exit (1);
+                                            }
+                                        }
+                                        isEval = true;
+                                        
+                                        for(int i = 0; i<size; i++)
+                                                {
+                                                    cout << coordpoints[i][0] << " " << coordpoints[i][1] << " " << coordpoints[i][2] <<endl;
+                                                }
+                                         cout << "bleh\n";
+                                        Prim.push_back (new Patch (OrderU, OrderV, partsU, partsV, control,size, coordpoints));
+                                        
+                                    }
+                                    else
+                                    {
+                                        cout << "Error creating patch.\n";
+                                        exit (1);
+                                    }
+                                    break;
+                                }
+                                case 6: // Another composed node (i.e. not a leaf)
+                                {
+
+                                    string child_id = (string)tag->Attribute ("id");
+
+                                    if (!child_id.empty())
                                     {
                                         children_id.push_back (child_id);
                                         cout << "Child id= " << child_id << endl;
@@ -923,6 +1001,20 @@ std:
                                     {
                                         cout << "Error getting child's id. Please investigate. Exiting..." << endl;
                                         exit (-1);
+                                    }
+                                    break;
+                                }
+                                case 7: //Plane
+                                {
+                                    int parts;
+                                    if(tag->QueryIntAttribute ("parts",&parts) == TIXML_SUCCESS)
+                                    {
+                                        Prim.push_back (new Plane(parts));
+                                    }
+                                    else
+                                    {
+                                        cout << "Error reading parts for plane primitive.\n";
+                                        exit(1);
                                     }
                                     break;
                                 }
@@ -942,7 +1034,7 @@ std:
                         exit (-1);
                     }
 
-                    No* node = new No (node_id, apref_id, matrix, children_id, isCL); // create a new node pointer with its values
+                    No* node = new No (node_id, apref_id, matrix, children_id, isCL,isEval); // create a new node pointer with its values
 
                     //fill the node's list of Primitives
                     if (Prim.size () != 0)
@@ -953,7 +1045,7 @@ std:
                             node->fill_primitive (*it);
                         }
                     }
-
+                    
                     nodes[node_id] = node; // Adds this iterations node to the map, referencing by its id
 
                     nodeElement = nodeElement->NextSiblingElement ();
@@ -994,10 +1086,10 @@ std:
         (*it).second->materialAppearance = appearances.find ((*it).second->appearanceid)->second;
     }
 
-    if (!Verifica (root))
+    /*if (!Verifica (root))
     {
         exit (1);
-    }
+    }*/
 }
 
 //Função que verifica recursivamente se há ciclos.
@@ -1034,6 +1126,7 @@ XMLScene::GenerateList (No* node)
 {
     for (list<No*>::iterator it = node->children.begin (); it != node->children.end (); it++)
     {
+        
         if ((*it)->isCallList)
         {
             (*it)->fatherAppearance = node->materialAppearance;

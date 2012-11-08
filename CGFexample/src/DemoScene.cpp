@@ -1,8 +1,9 @@
 #include "DemoScene.h"
 #include "CGFaxis.h"
 #include "CGFapplication.h"
-#include <math.h>
+#include <cmath>
 #include "CGFappearance.h"
+
 
 DemoScene::DemoScene(char* nome)
 {
@@ -16,6 +17,7 @@ void DemoScene::activateCamera(int i)
 
 void DemoScene::init() 
 {
+    
 	//Globals
 	glFrontFace(lsf->frontfaceorder);
 	glCullFace(lsf->cullface);
@@ -110,13 +112,16 @@ void DemoScene::display()
 	//Polygon mode and shading
 	glShadeModel(lsf->shade);
 	glPolygonMode(GL_FRONT_AND_BACK,lsf->mode);
-
-	// ---- BEGIN drawing
+    
+    // ---- BEGIN drawing
 	
+    
 	glPushMatrix();
 		lsf->root->draw(); //Calls drawing of the root node which, by itself, calls every other draw.
 	glPopMatrix();
 	
+    
+    
 	// ---- END drawing
 
 	// We have been drawing in a memory area that is not visible - the back buffer, 

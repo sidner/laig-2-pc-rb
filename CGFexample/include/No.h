@@ -13,7 +13,7 @@ using namespace std;
 
 class No: public CGFobject{	
 	public:
-		bool visited,isCallList;
+		bool visited,isCallList,isEval;
 		GLuint myCallList;
 		string name,appearanceid;
 		GLfloat matrix[16];
@@ -25,7 +25,7 @@ class No: public CGFobject{
 		static stack<Appearance*> pilha;
 		No(){};
 		virtual ~No(){};
-		No(string name,string ap, GLfloat m[16], list<string> child_ids,bool isCL);
+		No(string name,string ap, GLfloat m[16], list<string> child_ids,bool isCL,bool isEval);
 		void fill_children(No* child)
 		{
 			children.push_back(child);

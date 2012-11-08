@@ -26,7 +26,7 @@ class Appearance
 
 		~Appearance();
 
-		void apply();									///< Applies the material (makes it active for whatever is rendered next)
+		bool apply();									///< Applies the material (makes it active for whatever is rendered next)
 
 		void setEmissive(float*);						///< Sets the Emissive component of the material (4-float vector)
 		void setAmbient(float*);						///< Sets the Ambient component of the material (4-float vector)

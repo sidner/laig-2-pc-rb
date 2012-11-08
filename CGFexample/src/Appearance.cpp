@@ -117,7 +117,7 @@ Appearance::~Appearance()
 
 }
 
-void Appearance::apply() 
+bool Appearance::apply() 
 {
 
 	if(materialType==CG_GLMAT_MATERIAL) {
@@ -145,7 +145,9 @@ void Appearance::apply()
 		glMatrixMode(GL_MODELVIEW);
 	}
 	else
-		glDisable(GL_TEXTURE_2D);	       
+		glDisable(GL_TEXTURE_2D);
+    
+    return true;
 }
 
 void Appearance::setAmbient(float* li) 

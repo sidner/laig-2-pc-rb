@@ -1,7 +1,7 @@
 #include "No.h"
 
 stack<Appearance*> No::pilha;
-No::No (string name, string ap, GLfloat m[16], list<string> child_ids, bool isCL)
+No::No (string name, string ap, GLfloat m[16], list<string> child_ids, bool isCL,bool isEval)
 {
     this->name = name;
     appearanceid = ap;
@@ -15,6 +15,7 @@ No::No (string name, string ap, GLfloat m[16], list<string> child_ids, bool isCL
     this->child_ids = child_ids;
     isCallList = isCL;
     myCallList = 0;
+    this->isEval = isEval;
 }
 void
 No::generateCallList ()
@@ -36,7 +37,8 @@ No::generateCallList ()
     {
         for (list<Primitive*>::iterator it = primitives.begin (); it != primitives.end (); it++)
         {
-            materialAppearance->apply ();
+            if(!isEval)
+                materialAppearance->apply ();
             (*it)->draw ();
         }
     }
@@ -46,8 +48,8 @@ No::generateCallList ()
     {
         for (list<No*>::iterator it = children.begin (); it != children.end (); it++)
         {
-
-            materialAppearance->apply ();
+            if(!isEval)
+                materialAppearance->apply ();
             (*it)->draw ();
         }
     }

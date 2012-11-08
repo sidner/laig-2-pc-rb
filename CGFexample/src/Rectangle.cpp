@@ -1,6 +1,4 @@
 #include "Rectangle.h"
-#include <iostream>
-using namespace std;
 
 Rectangle::Rectangle(float x1,float x2,float y1,float y2)
 {

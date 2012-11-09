@@ -35,9 +35,7 @@ tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho)
         
        <ortho id="or" near="50.0" far="-50.0" left="-50.0" right="50.0" top="50.0" bottom="-50.0" />-->
     </cameras>
-    <!--
-informacao geral de iluminacao; segue os parametros do OpenGL
--->
+  
     <lighting doublesided="true" local="true" enabled="true">
         <!-- luz ambiente da cena -->
         <ambient r="0.7" g="0.7" b="0.7" a="1" />
@@ -156,22 +154,137 @@ informacao do grafo; "rootid" identifica o no de raiz
             <children>
             	<noderef id="skybox_right" />
             	<noderef id="skybox_left" />
-               
-                <noderef id="castelo" />
+                <noderef id="tenda" />
+                <!--<noderef id="castelo" />-->
                 <noderef id="floor" />
                 <noderef id="helicopter" />
             </children>
         </node>
-        <node id="helicopter" displaylist="true">
+        <node id="tenda">
             <transforms>
-                <translate x="30" y="5" z="30" />
+                <translate x="3" y="0" z="3" />
+                <scale x="2" y="2" z="2" />
+            </transforms>
+            <appearanceref id="heli" />
+            <children>
+                <patch orderU="4" orderV="4" partsU="30" partsV="30" control="fill">
+                    <controlpoint x="1.0" y="0" z="1.0" />
+                    <controlpoint x="0.66" y="1.0" z="1.0" />
+                    <controlpoint x="0.33" y="1.0" z="1.0" />
+                    <controlpoint x="0.0" y="0.0" z="1.0" />
+
+                    <controlpoint x="1.0" y="0.8" z="0.66" />
+                    <controlpoint x="0.66" y="1.0" z="0.66" />
+                    <controlpoint x="0.33" y="1.0" z="0.66" />
+                    <controlpoint x="0.0" y="0.8" z="0.66" />
+
+                    <controlpoint x="1.0" y="0.8" z="0.33" />
+                    <controlpoint x="0.66" y="1.0" z="0.33" />
+                    <controlpoint x="0.33" y="1.0" z="0.33" />
+                    <controlpoint x="0.0" y="0.8" z="0.33" />
+
+                    <controlpoint x="1.0" y="0" z="0.0" />
+                    <controlpoint x="0.66" y="1.0" z="0.0" />
+                    <controlpoint x="0.33" y="1.0" z="0.0" />
+                    <controlpoint x="0.0" y="0.0" z="0.0" />
+                </patch>
+            </children>
+        </node>
+        <node id="helicopter" displaylist="false">
+            <transforms>
+                <translate x="10" y="5" z="10" />
+                <rotate axis="y" angle="-90" />
             </transforms>
             <appearanceref id="pads" />
             <children>
                 <noderef id="heli_corpo" />
                 <noderef id="top_helice" />
+                <noderef id="feet" />
             </children>
         </node>
+
+        <node id="feet">
+            <transforms>
+            </transforms>
+            <appearanceref id="inherit" />
+            <children>
+                <noderef id="right_foot" />
+                <noderef id="left_foot" />
+            </children>
+        </node>
+
+        <node id="left_foot">
+            <transforms>
+                <translate x="-2" y="0" z="0"/>
+            </transforms>
+            <appearanceref id="inherit" />
+            <children>
+                <noderef id="right_foot" />
+            </children>
+        </node>
+        <node id="right_foot">
+            <transforms>
+            </transforms>
+            <appearanceref id="inherit" />
+            <children>
+                <noderef id="feet_components" />
+            </children>
+        </node>
+
+        <node id="feet_components" displaylist="true">
+            <transforms>
+            </transforms>
+            <appearanceref id="pads" />
+            <children>
+                <noderef id="horizontal_comp" />
+                <noderef id="vertical_comp" />
+            </children>
+        </node>
+
+        <node id="horizontal_comp" displaylist="true">
+            <transforms>
+                <translate x="1.0" y="-0.5" z="-3.0" />
+                <scale x="0.1" y="0.1" z="0.1" />
+            </transforms>
+            <appearanceref id="inherit" />
+            <children>
+                <cylinder base="0.5" top="0.5" height="40" slices="12" stacks="12" /> 
+            </children>
+        </node>
+
+        <node id="vertical_comp">
+            <transforms>
+                <translate x="1.0" y="-0.5" z="1.0" />
+                 <scale x="0.1" y="0.1" z="0.1" />
+            </transforms>
+            <appearanceref id="inherit" />
+            <children>
+                <noderef id="v_comp_1" />
+                <noderef id="v_comp_2" />
+            </children>
+        </node>
+
+        <node id="v_comp_1">
+            <transforms>
+                <rotate axis="x" angle="-90" />
+            </transforms>
+            <appearanceref id="inherit" />
+            <children>
+                <cylinder base="0.5" top="0.5" height="5" slices="12" stacks="12" /> 
+            </children>
+        </node>
+
+        <node id="v_comp_2">
+            <transforms>
+                <translate x="0.0" y="0.0" z="-40.0" />
+                <rotate axis="x" angle="-90" />
+            </transforms>
+            <appearanceref id="inherit" />
+            <children>
+                <cylinder base="0.5" top="0.5" height="5" slices="12" stacks="12" /> 
+            </children>
+        </node>
+
 
         <node id="top_helice" displaylist="false">
             <transforms>
@@ -184,7 +297,7 @@ informacao do grafo; "rootid" identifica o no de raiz
             </children>
         </node>
 
-        <node id="heli_corpo" displaylist="false">
+        <node id="heli_corpo" displaylist="true">
             <transforms>
                 <scale x="2" y="2" z="2" />
             </transforms>
@@ -221,35 +334,35 @@ informacao do grafo; "rootid" identifica o no de raiz
                     <controlpoint x="0.15" y="0.0" z="-2.0" />
                     <controlpoint x="0.5" y="0.0" z="-2.0" />
 
+                    <controlpoint x="-0.5" y="0.0" z="-2.25" />
+                    <controlpoint x="-0.15" y="0.0" z="-2.25" />
+                    <controlpoint x="0.15" y="0.0" z="-2.25" />
+                    <controlpoint x="0.5" y="0.0" z="-2.25" />
+
                     <controlpoint x="-0.5" y="0.0" z="-2.5" />
                     <controlpoint x="-0.15" y="0.0" z="-2.5" />
                     <controlpoint x="0.15" y="0.0" z="-2.5" />
                     <controlpoint x="0.5" y="0.0" z="-2.5" />
 
+                    <controlpoint x="-0.5" y="0.0" z="-2.75" />
+                    <controlpoint x="-0.15" y="0.0" z="-2.75" />
+                    <controlpoint x="0.15" y="0.0" z="-2.75" />
+                    <controlpoint x="0.5" y="0.0" z="-2.75" />
+
                     <controlpoint x="-0.5" y="0.0" z="-3.0" />
                     <controlpoint x="-0.15" y="0.0" z="-3.0" />
                     <controlpoint x="0.15" y="0.0" z="-3.0" />
-                    <controlpoint x="0.5" y="0.0" z="-3.0" />
+                    <controlpoint x="0.5" y="0.0" z="-3.0" />  
 
-                    <controlpoint x="-0.5" y="0.0" z="-3.5" />
+                    <controlpoint x="-0.5" y="0.0" z="-3.25" />
+                    <controlpoint x="-0.15" y="0.0" z="-3.25" />
+                    <controlpoint x="0.15" y="0.0" z="-3.25" />
+                    <controlpoint x="0.5" y="0.0" z="-3.25" />
+
                     <controlpoint x="-0.15" y="0.0" z="-3.5" />
+                    <controlpoint x="-0.05" y="0.0" z="-3.5" />
+                    <controlpoint x="0.05" y="0.0" z="-3.5" />
                     <controlpoint x="0.15" y="0.0" z="-3.5" />
-                    <controlpoint x="0.5" y="0.0" z="-3.5" />
-
-                    <controlpoint x="-0.5" y="0.0" z="-4.0" />
-                    <controlpoint x="-0.15" y="0.0" z="-4.0" />
-                    <controlpoint x="0.15" y="0.0" z="-4.0" />
-                    <controlpoint x="0.5" y="0.0" z="-4.0" />  
-
-                    <controlpoint x="-0.5" y="0.0" z="-4.5" />
-                    <controlpoint x="-0.15" y="0.0" z="-4.5" />
-                    <controlpoint x="0.15" y="0.0" z="-4.5" />
-                    <controlpoint x="0.5" y="0.0" z="-4.5" />
-
-                    <controlpoint x="-0.15" y="0.0" z="-5.0" />
-                    <controlpoint x="-0.05" y="0.0" z="-5.0" />
-                    <controlpoint x="0.05" y="0.0" z="-5.0" />
-                    <controlpoint x="0.15" y="0.0" z="-5.0" />
                 </patch>
             </children>
         </node>
@@ -280,35 +393,35 @@ informacao do grafo; "rootid" identifica o no de raiz
                     <controlpoint x="-0.15" y="0.5" z="-2.0" />
                     <controlpoint x="-0.5" y="0.0" z="-2.0" />
 
+                    <controlpoint x="0.5" y="0.0" z="-2.25" />
+                    <controlpoint x="0.15" y="0.5" z="-2.25" />
+                    <controlpoint x="-0.15" y="0.5" z="-2.25" />
+                    <controlpoint x="-0.5" y="0.0" z="-2.25" />
+
                     <controlpoint x="0.5" y="0.0" z="-2.5" />
                     <controlpoint x="0.15" y="0.5" z="-2.5" />
                     <controlpoint x="-0.15" y="0.5" z="-2.5" />
                     <controlpoint x="-0.5" y="0.0" z="-2.5" />
 
+                    <controlpoint x="0.5" y="0.0" z="-2.75" />
+                    <controlpoint x="0.15" y="0.5" z="-2.75" />
+                    <controlpoint x="-0.15" y="0.5" z="-2.75" />
+                    <controlpoint x="-0.5" y="0.0" z="-2.75" />
+
                     <controlpoint x="0.5" y="0.0" z="-3.0" />
                     <controlpoint x="0.15" y="0.5" z="-3.0" />
                     <controlpoint x="-0.15" y="0.5" z="-3.0" />
-                    <controlpoint x="-0.5" y="0.0" z="-3.0" />
+                    <controlpoint x="-0.5" y="0.0" z="-3.0" />  
 
-                    <controlpoint x="0.5" y="0.0" z="-3.5" />
-                    <controlpoint x="0.15" y="0.5" z="-3.5" />
-                    <controlpoint x="-0.15" y="0.5" z="-3.5" />
-                    <controlpoint x="-0.5" y="0.0" z="-3.5" />
+                    <controlpoint x="0.5" y="0.0" z="-3.25" />
+                    <controlpoint x="0.15" y="0.25" z="-3.25" />
+                    <controlpoint x="-0.15" y="0.25" z="-3.25" />
+                    <controlpoint x="-0.5" y="0.0" z="-3.25" />
 
-                    <controlpoint x="0.5" y="0.0" z="-4.0" />
-                    <controlpoint x="0.15" y="0.5" z="-4.0" />
-                    <controlpoint x="-0.15" y="0.5" z="-4.0" />
-                    <controlpoint x="-0.5" y="0.0" z="-4.0" />  
-
-                    <controlpoint x="0.5" y="0.0" z="-4.5" />
-                    <controlpoint x="0.15" y="0.25" z="-4.5" />
-                    <controlpoint x="-0.15" y="0.25" z="-4.5" />
-                    <controlpoint x="-0.5" y="0.0" z="-4.5" />
-
-                    <controlpoint x="0.15" y="1.0" z="-5.0" />
-                    <controlpoint x="0.05" y="0.0" z="-5.0" />
-                    <controlpoint x="-0.05" y="0.0" z="-5.0" />
-                    <controlpoint x="-0.15" y="0.0" z="-5.0" />
+                    <controlpoint x="0.15" y="0.0" z="-3.5" />
+                    <controlpoint x="0.05" y="0.0" z="-3.5" />
+                    <controlpoint x="-0.05" y="0.0" z="-3.5" />
+                    <controlpoint x="-0.15" y="1.0" z="-3.5" />
                 </patch>
             </children>
         </node>

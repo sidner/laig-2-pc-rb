@@ -6,7 +6,7 @@ uniform sampler2D secTexture;
 void main(void)
 {	float neve;
     vec4 cor= texture2D(baseTexture, gl_TexCoord[0].st);
-    vec4 offset = texture2D(secTexture, gl_TexCoord[0].st);
+    vec4 offset = texture2D(secTexture, gl_TexCoord[0].s+1.0,  gl_TexCoord[0].t+1.0);
 		
 	neve = 5.0*offset.r+5.0*offset.g+5.0*offset.b;
  	if(neve>10.0){

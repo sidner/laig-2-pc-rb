@@ -8,7 +8,7 @@ void main() {
 	vec4 v =vec4(gl_Vertex);
 	
 	vec4 offset= texture2D(secTexture, gl_TexCoord[0].st);
-	v.y = 3.0*offset.r+3.0*offset.g+3.0*offset.b;
+	y = 3.0*offset.r+3.0*offset.g+3.0*offset.b;
 	
 	
 	

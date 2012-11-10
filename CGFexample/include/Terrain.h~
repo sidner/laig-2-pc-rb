@@ -1,0 +1,13 @@
+#ifndef TERRAIN_H
+#define TERRAIN_H
+
+#include "Primitive.h"
+
+
+class Terrrain: public Primitive{
+public:
+	Terrain(float x1, float x2, float y1, float y2);
+	float x1,x2,y1,y2;
+	void draw();
+
+}

@@ -73,7 +73,7 @@ void DemoScene::update(long t)
 	shader->bind();
 	shader->update(chuva);
 	shader->unbind();
-	chuva=chuva-0.1;
+
 	
 }
 	

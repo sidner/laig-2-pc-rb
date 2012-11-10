@@ -10,7 +10,7 @@ a declaração dos atributos deste bloco e' obrigatoria
         <!-- Configuracao de desenho de poligonos e shading -->
         <!-- Valores para mode: "fill", "line", "point" -->
         <!-- Valores para shading: "flat", "gouraud") -->
-        <polygon mode="front" shading="gouraud" />
+        <polygon mode="Line" shading="gouraud" />
         <!-- Configuracao de culling -->
         <!-- Valores para frontfaceorder: "CCW") ou "CW" -->
         <!-- Valores para cullface: "back", "front" ou "both" -->
@@ -24,7 +24,7 @@ informacao de camaras: o atributo "initial" identifica a camara/ponto de vista i
 tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho)
 -->
 		<perspective id="per2" near="0.001" far="100" angle="50.0">
-            <from x="25	" y="15" z="30" />
+            <from x="50	" y="15" z="50" />
             <to x="0" y="0" z="0" />
         </perspective>
         
@@ -54,11 +54,11 @@ informacao geral de iluminacao; segue os parametros do OpenGL
               
                 <spot angle="20" exponent="2" dirx="-5.0" diry="-5.0" dirz="-5.0" />
             </light>
-            <light id="one" enabled="true">
+            <light id="one" enabled="false">
                 <location x="5.0" y="20.0" z="5.0" />
-                <ambient r="1" g="1" b="1" a="1" />
-                <diffuse r="1" g="1" b="1" a="1" />
-                <specular r="1" g="1" b="1" a="1" />
+                <ambient r="0.5" g="0.5" b="0.5" a="1" />
+                <diffuse r="0.5" g="0.5" b="0.5" a="1" />
+                <specular r="0.5" g="0.5" b="0.5" a="1" />
                 <!--
 No caso de uma ser uma spotlight, incluir os dados abaixo; se for uma omnilight, omitir
 -->
@@ -78,19 +78,11 @@ No caso de uma ser uma spotlight, incluir os dados abaixo; se for uma omnilight,
 informacao opcional de textura (ver nota no enunciado sobre os parametros length_...
 -->
         </appearance>
-        <appearance id="window">
-            <emissive r="0.5" g="0.5" b="0.5" a="0.5" />
-            <ambient r="0.4" g="0.4" b="0.4" a="0.4" />
-            <diffuse r="0.4" g="0.4" b="0.4" a="0.4" />
-            <specular r="0.4" g="0.4" b="0.4" a="0.4" />
-             <shininess value="1" />
-	    <texture file="../textures/window.png" length_s="1.0" length_t="1.0" />	
-        </appearance>
         <appearance id="neutro">
             <emissive r="0" g="0" b="0" a="0" />
             <ambient r="0.4" g="0" b="0" a="1" />
             <diffuse r="0.4" g="0" b="0" a="1" />
-            <specular r="0.4" g="0.4" b="0.4" a="0.4" />
+            <specular r="0.4" g="0" b="0" a="1" />
             <shininess value="1" />
         </appearance>
         <appearance id="castelo">
@@ -99,7 +91,7 @@ informacao opcional de textura (ver nota no enunciado sobre os parametros length
             <diffuse r="0.7" g="0.7" b="0.3" a="1" />
             <specular r="0.5" g="0.5" b="0.75" a="0.9" />
             <shininess value="0.7" />
-            <texture file="../textures/wall.jpg" length_s="1.0" length_t="1.0" />	
+            <texture file="../textures/wall2.jpg" length_s="1.0" length_t="1.0" />	
         </appearance>
         <appearance id="skybox_left">
             <emissive r="0" g="0" b="0" a="0" />
@@ -124,14 +116,34 @@ informacao opcional de textura (ver nota no enunciado sobre os parametros length
             <shininess value="0" />
 			<texture file="../textures/estrelas.jpg" length_s="1" length_t="1" />
         </appearance>
-        <appearance id="terra" >
+
+<appearance id="terra" >
             <emissive r="0" g="0" b="0" a="0" />
             <ambient r="0.4" g="0" b="0" a="1" />
             <diffuse r="0.4" g="0" b="0" a="1" />
             <specular r="0.4" g="0.4" b="0.4" a="0.4" />
             <shininess value="1" />
-            <texture file="../textures/terra.jpg" length_s="1" length_t="1" />
+           <texture file="../textures/terra.jpg" length_s="1" length_t="1" />
         </appearance>
+
+        <appearance id="heli">
+            <emissive r="0.5" g="0.5" b="0.5" a="0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="1" />
+            <specular r="0.5" g="0.5" b="0.5" a="1" />
+            <shininess value="0" />
+            <texture file="../textures/heli3.jpg" length_s="0.25" length_t="0.25" />
+        </appearance>
+
+ <appearance id="pads">
+            <emissive r="0.5" g="0.5" b="0.5" a="0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="1" />
+            <specular r="0.5" g="0.5" b="0.5" a="1" />
+            <shininess value="0" />
+            <texture file="../textures/pads.jpg" length_s="1" length_t="1" />
+        </appearance>
+
     </appearances>
     <!--
 informacao do grafo; "rootid" identifica o no de raiz
@@ -140,16 +152,168 @@ informacao do grafo; "rootid" identifica o no de raiz
         <node id="raiz">
         	<transforms>
             </transforms>
-            <appearanceref id="neutro" />
+            <appearanceref id="terra" />
             <children>
             	<noderef id="skybox_right" />
             	<noderef id="skybox_left" />
-                <noderef id="arqueiro" />
+               
                 <noderef id="castelo" />
                 <noderef id="floor" />
+                <noderef id="helicopter" />
             </children>
         </node>
-        <node id="skybox_right">
+        <node id="helicopter" displaylist="true">
+            <transforms>
+                <translate x="30" y="5" z="30" />
+            </transforms>
+            <appearanceref id="pads" />
+            <children>
+                <noderef id="heli_corpo" />
+                <noderef id="top_helice" />
+            </children>
+        </node>
+
+        <node id="top_helice" displaylist="false">
+            <transforms>
+                <translate x="0" y="2" z="0"/>
+                <scale x="12" y="0.05" z="0.5" />
+            </transforms>
+            <appearanceref id="pads" />
+            <children>
+                <noderef id="cubo"/>
+            </children>
+        </node>
+
+        <node id="heli_corpo" displaylist="false">
+            <transforms>
+                <scale x="2" y="2" z="2" />
+            </transforms>
+            <appearanceref id="heli" />
+            <children>
+                <noderef id="body_top" />
+                <noderef id="body_bot" />
+            </children>
+        </node>
+
+        <node id="body_bot" displaylist="true">
+            <transforms>
+            </transforms>
+            <appearanceref id="heli" />
+            <children>
+                <patch orderU="4" orderV="10" partsU="30" partsV="30" control="fill">
+                    <controlpoint x="-0.2" y="0.0" z="1.0" />
+                    <controlpoint x="-0.1" y="0.0" z="1.0" />
+                    <controlpoint x="0.1" y="0.0" z="1.0" />
+                    <controlpoint x="0.2" y="0.0" z="1.0" />
+
+                    <controlpoint x="-1.75" y="0.0" z="0.33" />
+                    <controlpoint x="-0.75" y="0.0" z="0.33" />
+                    <controlpoint x="0.75" y="0.0" z="0.33" />
+                    <controlpoint x="1.75" y="0.0" z="0.33" />
+
+                    <controlpoint x="-0.5" y="0.0" z="-0.33" />
+                    <controlpoint x="-0.25" y="0.0" z="-0.33" />
+                    <controlpoint x="0.25" y="0.0" z="-0.33" />
+                    <controlpoint x="0.5" y="0.0" z="-0.33" />
+
+                    <controlpoint x="-0.5" y="0.0" z="-2.0" />
+                    <controlpoint x="-0.15" y="0.0" z="-2.0" />
+                    <controlpoint x="0.15" y="0.0" z="-2.0" />
+                    <controlpoint x="0.5" y="0.0" z="-2.0" />
+
+                    <controlpoint x="-0.5" y="0.0" z="-2.5" />
+                    <controlpoint x="-0.15" y="0.0" z="-2.5" />
+                    <controlpoint x="0.15" y="0.0" z="-2.5" />
+                    <controlpoint x="0.5" y="0.0" z="-2.5" />
+
+                    <controlpoint x="-0.5" y="0.0" z="-3.0" />
+                    <controlpoint x="-0.15" y="0.0" z="-3.0" />
+                    <controlpoint x="0.15" y="0.0" z="-3.0" />
+                    <controlpoint x="0.5" y="0.0" z="-3.0" />
+
+                    <controlpoint x="-0.5" y="0.0" z="-3.5" />
+                    <controlpoint x="-0.15" y="0.0" z="-3.5" />
+                    <controlpoint x="0.15" y="0.0" z="-3.5" />
+                    <controlpoint x="0.5" y="0.0" z="-3.5" />
+
+                    <controlpoint x="-0.5" y="0.0" z="-4.0" />
+                    <controlpoint x="-0.15" y="0.0" z="-4.0" />
+                    <controlpoint x="0.15" y="0.0" z="-4.0" />
+                    <controlpoint x="0.5" y="0.0" z="-4.0" />  
+
+                    <controlpoint x="-0.5" y="0.0" z="-4.5" />
+                    <controlpoint x="-0.15" y="0.0" z="-4.5" />
+                    <controlpoint x="0.15" y="0.0" z="-4.5" />
+                    <controlpoint x="0.5" y="0.0" z="-4.5" />
+
+                    <controlpoint x="-0.15" y="0.0" z="-5.0" />
+                    <controlpoint x="-0.05" y="0.0" z="-5.0" />
+                    <controlpoint x="0.05" y="0.0" z="-5.0" />
+                    <controlpoint x="0.15" y="0.0" z="-5.0" />
+                </patch>
+            </children>
+        </node>
+
+        <node id="body_top" displaylist="true">
+            <transforms>
+            </transforms>
+            <appearanceref id="inherit" />
+            <children>
+                <patch orderU="4" orderV="10" partsU="30" partsV="30" control="fill">
+                    <controlpoint x="0.2" y="0.0" z="1.0" />
+                    <controlpoint x="0.1" y="0.0" z="1.0" />
+                    <controlpoint x="-0.1" y="0.0" z="1.0" />
+                    <controlpoint x="-0.2" y="0.0" z="1.0" />
+
+                    <controlpoint x="1.75" y="0.0" z="0.33" />
+                    <controlpoint x="0.75" y="3.0" z="0.33" />
+                    <controlpoint x="-0.75" y="3.0" z="0.33" />
+                    <controlpoint x="-1.75" y="0.0" z="0.33" />
+
+                    <controlpoint x="0.5" y="0.0" z="-0.33" />
+                    <controlpoint x="0.25" y="0.5" z="-0.33" />
+                    <controlpoint x="-0.25" y="0.5" z="-0.33" />
+                    <controlpoint x="-0.5" y="0.0" z="-0.33" />
+
+                    <controlpoint x="0.5" y="0.0" z="-2.0" />
+                    <controlpoint x="0.15" y="0.5" z="-2.0" />
+                    <controlpoint x="-0.15" y="0.5" z="-2.0" />
+                    <controlpoint x="-0.5" y="0.0" z="-2.0" />
+
+                    <controlpoint x="0.5" y="0.0" z="-2.5" />
+                    <controlpoint x="0.15" y="0.5" z="-2.5" />
+                    <controlpoint x="-0.15" y="0.5" z="-2.5" />
+                    <controlpoint x="-0.5" y="0.0" z="-2.5" />
+
+                    <controlpoint x="0.5" y="0.0" z="-3.0" />
+                    <controlpoint x="0.15" y="0.5" z="-3.0" />
+                    <controlpoint x="-0.15" y="0.5" z="-3.0" />
+                    <controlpoint x="-0.5" y="0.0" z="-3.0" />
+
+                    <controlpoint x="0.5" y="0.0" z="-3.5" />
+                    <controlpoint x="0.15" y="0.5" z="-3.5" />
+                    <controlpoint x="-0.15" y="0.5" z="-3.5" />
+                    <controlpoint x="-0.5" y="0.0" z="-3.5" />
+
+                    <controlpoint x="0.5" y="0.0" z="-4.0" />
+                    <controlpoint x="0.15" y="0.5" z="-4.0" />
+                    <controlpoint x="-0.15" y="0.5" z="-4.0" />
+                    <controlpoint x="-0.5" y="0.0" z="-4.0" />  
+
+                    <controlpoint x="0.5" y="0.0" z="-4.5" />
+                    <controlpoint x="0.15" y="0.25" z="-4.5" />
+                    <controlpoint x="-0.15" y="0.25" z="-4.5" />
+                    <controlpoint x="-0.5" y="0.0" z="-4.5" />
+
+                    <controlpoint x="0.15" y="1.0" z="-5.0" />
+                    <controlpoint x="0.05" y="0.0" z="-5.0" />
+                    <controlpoint x="-0.05" y="0.0" z="-5.0" />
+                    <controlpoint x="-0.15" y="0.0" z="-5.0" />
+                </patch>
+            </children>
+        </node>
+        
+        <node id="skybox_right" displaylist="true">
             <transforms>
                 <translate x="25" y="10" z="0" />
                 <scale x="50" y="25" z="0" />
@@ -160,7 +324,7 @@ informacao do grafo; "rootid" identifica o no de raiz
                 <noderef id="cubo_face" />
             </children>
         </node>
-        <node id="skybox_left">
+        <node id="skybox_left" displaylist="false">
             <transforms>
                 <translate x="0" y="10" z="25" />
                 <scale x="0" y="25" z="50" />
@@ -172,7 +336,7 @@ informacao do grafo; "rootid" identifica o no de raiz
                 <noderef id="cubo_face" />
             </children>
         </node>
-        <node id="arqueiro">
+        <node id="arqueiro" displaylist="true">
             <!-- Arqueiro cujos filhos são corpo, cabeça, pernas e braços -->
             <transforms>
                 <translate x="18" y="2.89" z="18" />
@@ -187,7 +351,7 @@ informacao do grafo; "rootid" identifica o no de raiz
                 <noderef id="arqueiro_corpo" />
             </children>
         </node>
-        <node id="castelo">
+        <node id="castelo" displaylist="true">
             <transforms>
                 <translate x="8" y="3" z="8" />
                <!-- <scale x="5" y="5" z="5" />-->
@@ -201,15 +365,15 @@ informacao do grafo; "rootid" identifica o no de raiz
         </node>
         <node id="floor">
             <transforms>
-                <translate x="25" y="-0.75" z="25" />
+                <translate x="25" y="0" z="25" />
                 <scale x="50" y="1.5" z="50" />
             </transforms>
             <appearanceref id="grass" />
             <children>
-                <noderef id="cubo" />
+                <plane parts="100" />
             </children>
         </node>
-        <node id="arqueiro_cabeca">
+        <node id="arqueiro_cabeca" displaylist="true">
             <transforms>
                 <translate x="0" y="2.9" z="0" />
                 <scale x="1" y="1" z="1" />

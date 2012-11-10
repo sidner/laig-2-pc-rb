@@ -10,7 +10,7 @@ a declaração dos atributos deste bloco e' obrigatoria
         <!-- Configuracao de desenho de poligonos e shading -->
         <!-- Valores para mode: "fill", "line", "point" -->
         <!-- Valores para shading: "flat", "gouraud") -->
-        <polygon mode="front" shading="gouraud" />
+        <polygon mode="Line" shading="gouraud" />
         <!-- Configuracao de culling -->
         <!-- Valores para frontfaceorder: "CCW") ou "CW" -->
         <!-- Valores para cullface: "back", "front" ou "both" -->
@@ -152,14 +152,16 @@ informacao do grafo; "rootid" identifica o no de raiz
         <node id="raiz">
         	<transforms>
             </transforms>
-            <appearanceref id="neutro" />
+            <appearanceref id="terra" />
             <children>
+		 <noderef id="floor" />
+<! --
             	<noderef id="skybox_right" />
-            	<noderef id="skybox_left" />
+      <! --      	<noderef id="skybox_left" />
                
-                <noderef id="castelo" />
-                <noderef id="floor" />
-                <noderef id="helicopter" />
+        <! --        <noderef id="castelo" />
+               
+          <! --      <noderef id="helicopter" />
             </children>
         </node>
         <node id="helicopter" displaylist="true">
@@ -370,7 +372,7 @@ informacao do grafo; "rootid" identifica o no de raiz
             </transforms>
             <appearanceref id="grass" />
             <children>
-                <plane parts="10" />
+                <plane parts="100" />
             </children>
         </node>
         <node id="arqueiro_cabeca" displaylist="true">

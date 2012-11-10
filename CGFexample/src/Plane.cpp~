@@ -1,4 +1,3 @@
-
 #include "Plane.h"
 
 Plane::Plane (int parts)

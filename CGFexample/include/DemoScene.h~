@@ -32,7 +32,6 @@ private:
 	vector<CGFcamera*> vec_cameras;
         HeliBody* heli_body;
         Pads* pads;
-	Plane * terrain; 
 };
 
 #endif

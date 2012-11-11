@@ -15,7 +15,6 @@ public:
 	Animation * animacao3;
 	Animation * animacao4;
 	Animation * animacao5;
-	Animation * animacao6;
 	Animation * poly;
     Pads(Appearance* pads_app);
     Appearance* pads_app;

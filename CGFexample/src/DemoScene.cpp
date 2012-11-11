@@ -59,7 +59,7 @@ void DemoScene::init()
     //Helicopter
     pads = new Pads(lsf->pads_app);
     heli_body = new HeliBody(lsf->heli_app,lsf->pads_app);
-	
+	terrain= new Plane(100);
 	//shader=new CGFshader("../shaders/texshader.vert","../shaders/texshader.frag");
 
 	lsf->GenerateList(lsf->root);
@@ -69,6 +69,8 @@ void DemoScene::init()
 
 void DemoScene::update(long t)
 {
+	 heli_body->update();
+	pads->update();
 	//shader->bind();
 	//shader->update(t/400.0);
 	//shader->unbind();
@@ -119,15 +121,24 @@ void DemoScene::display()
     // ---- BEGIN drawing
 	
     glPushMatrix();
-        glTranslatef(10,5,10);
-       glRotatef (-90,0,1,0);
+    //    glTranslatef(10,5,10);
+     //  glRotatef (-90,0,1,0);
         heli_body->draw ();
         pads->draw ();
     glPopMatrix();
     
+		terrain->vulcao->bind();
+		
+		terrain->draw();
+
+		terrain->vulcao->unbind();
+
+
+
+
 	glPushMatrix();
         
-		lsf->root->draw(); //Calls drawing of the root node which, by itself, calls every other draw.
+		//lsf->root->draw(); //Calls drawing of the root node which, by itself, calls every other draw.
 	glPopMatrix();
 	
     

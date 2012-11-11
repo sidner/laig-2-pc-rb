@@ -152,7 +152,7 @@ informacao do grafo; "rootid" identifica o no de raiz
             </transforms>
             <appearanceref id="neutro" />
             <children>
-            	<noderef id="skybox_right" />
+           <!-- 	<noderef id="skybox_right" />
             	<noderef id="skybox_left" />
                 <noderef id="tenda" />
                 <!--<noderef id="castelo" />-->

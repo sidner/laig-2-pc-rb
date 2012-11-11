@@ -10,7 +10,7 @@ void main() {
 	vec4 offset= texture2D(secTexture, gl_TexCoord[0].st);
 	v.y = 3.0*offset.r+3.0*offset.g+3.0*offset.b;
 	
-	if(v.x>10.0){
+	if(v.x>50.0){
 	v.x=10.0;
 	}
 	

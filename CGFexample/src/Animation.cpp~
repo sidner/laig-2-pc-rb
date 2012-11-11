@@ -81,7 +81,7 @@ void PolyAnimation::update(float &ox,float &oy,float &oz, float &angulo){
 	
 	
 	//cout << ox << "          " << percurso[indice]->getX()<< endl;
-	if(indice!=percurso.size()){
+	if(indice!=percurso.size()-1){
 
 			if(abs(ox)>= percurso[indice]->getX()){
 				if(abs(oy)>=percurso[indice]->getY()){

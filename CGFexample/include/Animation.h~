@@ -78,4 +78,82 @@ class PolyAnimation:public Animation{
 
 
 
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+class Animation{
+
+public:
+int tempo;
+Animation(int tempo, float x,float y,float z);
+Animation(int tempo);
+float dirX,dirY,dirZ;
+float active;
+float x,y,z;
+
+virtual void update();
+int getTempo();
+virtual float getxf(){
+}
+virtual float getyf(){
+}
+virtual float getzf(){
+}
+float getY();
+float getZ();
+float angulo;
+
+
+};
+
+
+
+
+
+class LineAnimation:public Animation{
+float deltaX, deltaY, deltaZ;
+float xf,yf,zf;
+float getxf(){
+return xf;
+}
+float getyf(){
+return yf;
+}
+float getzf(){
+return zf;
+}
+
+public:
+
+LineAnimation(float xi,float xf,float yi,float yf,float zi,float zf, int tempo);
+
+void update();
+
+};
+
+
+
+
+class PolyAnimation:public Animation{
+public:
+vector<Animation *> pontosControle;
+PolyAnimation(vector <Animation *> vec, int tempo);
+void update();
+
+int indice;
+};
+
+*/
+
 #endif

@@ -133,10 +133,10 @@ HeliBody::HeliBody (Appearance* heli_app, Appearance* pads_app)
         {0.15, 0.0, -3.25},
         {0.5, 0.0, -3.25},
 
-        {-0.5, 0.0, -3.5},
+        {-0.2, 0.0, -3.5},
         {-0.15, 0.0, -3.5},
         {0.15, 0.0, -3.5},
-        {0.5, 0.0, -3.5}
+        {0.2, 0.0, -3.5}
     };
     
     
@@ -169,12 +169,12 @@ HeliBody::HeliBody (Appearance* heli_app, Appearance* pads_app)
     textpoints[3][0] = 1.0;
     textpoints[3][1] = 1.0;
 
-    parts[0] = glGenLists (2);
-    parts[1] = glGenLists (2);
+    disptop = glGenLists (2);
+    dispbot = glGenLists (2);
 
 
     //top part
-    glNewList (parts[0], GL_COMPILE);
+    glNewList (disptop, GL_COMPILE);
 
     glEnable (GL_AUTO_NORMAL);
     glPushMatrix ();
@@ -201,11 +201,14 @@ HeliBody::HeliBody (Appearance* heli_app, Appearance* pads_app)
 
 
     //bottom part
-    glNewList (parts[1], GL_COMPILE);
+    glNewList (dispbot, GL_COMPILE);
 
     glEnable (GL_AUTO_NORMAL);
     glPushMatrix ();
-
+    
+    //glFrontFace(GL_CW);
+    
+    glScalef(1,0,1);
 
     glMap2f (GL_MAP2_VERTEX_3, 0.0, 1.0, 3, 4, 0.0, 1.0, 12, 10, &controlpointsBot[0][0]);
     glMap2f (GL_MAP2_COLOR_4, 0.0, 1.0, 4, 2, 0.0, 1.0, 8, 2, &colorpoints[0][0]);
@@ -239,8 +242,8 @@ glTranslated(posx,posy,posz);
 
     heli_app->apply ();
 
-  glCallList (parts[0]);
-  // glCallList (parts[1]);
+  glCallList (disptop);
+   glCallList (dispbot);
 
     glPopMatrix ();
 

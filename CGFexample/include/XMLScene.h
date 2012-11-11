@@ -37,6 +37,8 @@ public:
 	bool Verifica(No* node);
 	vector<pair<No*,bool> > temp;
 	void GenerateList(No*);
+        Appearance* heli_app;
+        Appearance* pads_app;
 protected:
 
 	TiXmlDocument* doc;

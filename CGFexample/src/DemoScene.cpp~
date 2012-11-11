@@ -127,7 +127,7 @@ void DemoScene::display()
     
 	glPushMatrix();
         
-		lsf->root->draw(); //Calls drawing of the root node which, by itself, calls every other draw.
+		//lsf->root->draw(); //Calls drawing of the root node which, by itself, calls every other draw.
 	glPopMatrix();
 	
     

@@ -625,8 +625,15 @@ XMLScene::XMLScene (char *filename)
             }
             cout << "app_id: " << app_id << endl;
             appearances[app_id] = materialAppearance;
+            if(app_id == "heli")
+            {
+                heli_app = materialAppearance;
+            }
+            else if(app_id == "pads")
+            {
+                pads_app = materialAppearance;
+            }
         }
-
         appearance = appearance->NextSiblingElement ();
     }
     while (appearance);

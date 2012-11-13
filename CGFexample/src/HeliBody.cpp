@@ -191,9 +191,9 @@ HeliBody::HeliBody (Appearance* heli_app, Appearance* pads_app)
 
     //glEnable(GL_TEXTURE_2D);
     //glBindTexture(GL_TEXTURE_2D, 1);
-    glMapGrid2f (30, 0.0, 1.0, 30, 0.0, 1.0);
+    glMapGrid2f (10, 0.0, 1.0, 20, 0.0, 1.0);
 
-    glEvalMesh2 (GL_FILL, 0, 30, 0, 30);
+    glEvalMesh2 (GL_FILL, 0, 10, 0,20);
     //glDisable(GL_TEXTURE_2D);
     glPopMatrix ();
 
@@ -221,9 +221,9 @@ HeliBody::HeliBody (Appearance* heli_app, Appearance* pads_app)
 
     //glEnable(GL_TEXTURE_2D);
     //glBindTexture(GL_TEXTURE_2D, 1);
-    glMapGrid2f (30, 0.0, 1.0, 30, 0.0, 1.0);
+    glMapGrid2f (10, 0.0, 1.0, 20, 0.0, 1.0);
 
-    glEvalMesh2 (GL_FILL, 0, 30, 0, 30);
+    glEvalMesh2 (GL_FILL, 0, 10, 0,20);
     //glDisable(GL_TEXTURE_2D);
     glPopMatrix ();
 

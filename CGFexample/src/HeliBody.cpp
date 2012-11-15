@@ -233,7 +233,8 @@ void
 HeliBody::draw ()
 {
  glPushMatrix ();
-glTranslated(posx,posy,posz);
+    glTranslated(posx,posy,posz);
+   
 	glRotated(angle,0,1,0);
 
     glPushMatrix();

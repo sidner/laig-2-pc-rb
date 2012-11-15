@@ -109,7 +109,7 @@ void DemoScene::display()
 	}
 
 	// Draw axis
-	axis.draw();
+	//axis.draw();
 
 
 	// ---- END Background, camera and axis setup
@@ -123,6 +123,7 @@ void DemoScene::display()
     glPushMatrix();
     //    glTranslatef(10,5,10);
      //  glRotatef (-90,0,1,0);
+         glTranslated(2,2,2);
         heli_body->draw ();
         pads->draw ();
     glPopMatrix();
@@ -138,7 +139,7 @@ void DemoScene::display()
 
 	glPushMatrix();
         
-		//lsf->root->draw(); //Calls drawing of the root node which, by itself, calls every other draw.
+		lsf->root->draw(); //Calls drawing of the root node which, by itself, calls every other draw.
 	glPopMatrix();
 	
     

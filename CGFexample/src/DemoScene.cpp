@@ -7,7 +7,7 @@
 
 DemoScene::DemoScene(char* nome)
 {
-	lsf = new XMLScene(nome);
+	strcpy(this->nome, nome);
 }
 
 void DemoScene::activateCamera(int i)
@@ -17,7 +17,7 @@ void DemoScene::activateCamera(int i)
 
 void DemoScene::init() 
 {
-    
+    lsf = new XMLScene(nome);
 	//Globals
 	glFrontFace(lsf->frontfaceorder);
 	glCullFace(lsf->cullface);
@@ -63,7 +63,7 @@ void DemoScene::init()
 	//shader=new CGFshader("../shaders/texshader.vert","../shaders/texshader.frag");
 
 	lsf->GenerateList(lsf->root);
-
+lsf->appearances["skybox"]->setTexture("../textures/estrelas.jpg");
 	setUpdatePeriod(30);
 }
 

@@ -38,6 +38,7 @@ void CGFtexture::loadTexture(string t)
 	unsigned char *data = loadRGBImage(texName.c_str(), &texWidth, &texHeight);
 	if (data)
 	{
+        printf("Loading %s as texture ID %d\n", t.c_str (), texID);
 		glPixelStorei(GL_UNPACK_ROW_LENGTH, texWidth);
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 

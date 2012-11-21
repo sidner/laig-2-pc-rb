@@ -5,7 +5,6 @@
 
 #include <iostream>
 
-unsigned int CGFtexture::counter = 0;
 
 CGFtexture::CGFtexture()
 {
@@ -14,6 +13,7 @@ CGFtexture::CGFtexture()
 
 CGFtexture::CGFtexture(string t)
 {
+    texID=-1;
 	loadTexture(t);
 }
 
@@ -43,10 +43,11 @@ void CGFtexture::loadTexture(string t)
 	texName=t;
     printf("Loading %s texture before giving ID with ID=%d\n", t.c_str(),texID);
     
-	//if (texID==-1 || texID == 0)
-   // {
-        myGenTexture (&texID);
-   // }
+if (texID==-1 )
+   {
+        glGenTextures (1,&texID);
+   }
+       
     
 	unsigned char *data = loadRGBImage(texName.c_str(), &texWidth, &texHeight);
 	if (data)

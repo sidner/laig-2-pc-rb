@@ -63,7 +63,7 @@ void DemoScene::init()
 	//shader=new CGFshader("../shaders/texshader.vert","../shaders/texshader.frag");
 
 	lsf->GenerateList(lsf->root);
-lsf->appearances["skybox"]->setTexture("../textures/estrelas.jpg");
+//lsf->appearances["skybox"]->setTexture("../textures/estrelas.jpg");
 	setUpdatePeriod(30);
 }
 
@@ -122,8 +122,9 @@ void DemoScene::display()
 	
     glPushMatrix();
     //    glTranslatef(10,5,10);
-     //  glRotatef (-90,0,1,0);
-         glTranslated(2,2,2);
+          
+         glTranslated(4,2,4);
+         glRotatef (45,0,1,0);
         heli_body->draw ();
         pads->draw ();
     glPopMatrix();

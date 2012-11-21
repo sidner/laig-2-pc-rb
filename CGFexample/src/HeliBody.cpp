@@ -288,10 +288,10 @@ HeliBody::draw ()
  glPushMatrix ();
     glTranslated(posx,posy,posz);
    
-	glRotated(angle,0,1,0);
-
+	//glRotated(45,0,1,0);
+    glTranslatef(-12,0,0);
     glPushMatrix();
-
+    
     glScalef (2.0, 2.0, 2.0);
 
     heli_app->apply ();

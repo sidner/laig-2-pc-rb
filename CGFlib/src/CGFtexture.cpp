@@ -5,6 +5,7 @@
 
 #include <iostream>
 
+unsigned int CGFtexture::counter = 0;
 
 CGFtexture::CGFtexture()
 {
@@ -28,17 +29,29 @@ void CGFtexture::apply()
 		glBindTexture(GL_TEXTURE_2D, texID);
 }
 
+
+void CGFtexture::myGenTexture (unsigned int * ID)
+{
+    counter++;
+    (*ID) = counter;
+    
+}
+
 void CGFtexture::loadTexture(string t) 
 {
 	texName=t;
-
-	if (texID==-1)
-		glGenTextures(1,&texID);
-
+    printf("Loading %s texture before giving ID with ID=%d\n", t.c_str(),texID);
+    
+	if (texID==-1 || texID == 0)
+    {
+        myGenTexture(&texID);
+        printf("I should always show this.\n");
+    }
+    
 	unsigned char *data = loadRGBImage(texName.c_str(), &texWidth, &texHeight);
 	if (data)
 	{
-        printf("Loading %s as texture ID %d\n", t.c_str (), texID);
+        printf("Loading %s as texture ID %d and counter is %d\n", t.c_str (), texID, counter);
 		glPixelStorei(GL_UNPACK_ROW_LENGTH, texWidth);
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 

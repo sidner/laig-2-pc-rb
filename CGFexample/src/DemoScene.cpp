@@ -123,8 +123,8 @@ void DemoScene::display()
     glPushMatrix();
     //    glTranslatef(10,5,10);
           
-         glTranslated(4,2,4);
-         glRotatef (45,0,1,0);
+         glTranslated(1,2,1);
+         //glRotatef (45,0,1,0);
         heli_body->draw ();
         pads->draw ();
     glPopMatrix();

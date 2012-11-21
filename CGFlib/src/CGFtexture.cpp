@@ -32,7 +32,8 @@ void CGFtexture::apply()
 
 void CGFtexture::myGenTexture (unsigned int * ID)
 {
-    counter++;
+    counter = counter + 1;
+    
     (*ID) = counter;
     
 }
@@ -42,11 +43,10 @@ void CGFtexture::loadTexture(string t)
 	texName=t;
     printf("Loading %s texture before giving ID with ID=%d\n", t.c_str(),texID);
     
-	if (texID==-1 || texID == 0)
-    {
-        myGenTexture(&texID);
-        printf("I should always show this.\n");
-    }
+	//if (texID==-1 || texID == 0)
+   // {
+        myGenTexture (&texID);
+   // }
     
 	unsigned char *data = loadRGBImage(texName.c_str(), &texWidth, &texHeight);
 	if (data)
